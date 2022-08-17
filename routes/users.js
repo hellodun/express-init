@@ -43,7 +43,13 @@ router.route("/:id").get((req, res) => {
 */
 
 // This is because the 3 functions have identical structure and the difference is the HTTP method, i.e. get, put, delete.
+const users = [{ name: "John" }, { name: "Rose" }]
+router.param("id", (req, res, next, id) => {
+  req.user = users[id];
+  next() // The next function is used with middlewares to prompt the program to continue executing once a middleware has been processed
 
+  // Without the function next(), the program will load infinitely in the browser.
+});
 
 
 module.exports = router;
